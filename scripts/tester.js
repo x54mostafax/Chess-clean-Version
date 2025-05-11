@@ -96,4 +96,4 @@ function Test(Ar) {
         Handleclick(new Vector2(...element.to).f - 1)
     }
 }
- Test(Kish)
+//  Test(Kish)
