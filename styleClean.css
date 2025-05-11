@@ -1,0 +1,167 @@
+style.css
+*{
+    margin: 0 ;
+    padding: 0;
+}
+
+:root {
+  --primary-green: #8ac23f;         /* لون الخلفية العلوية */
+  --dark-green: #5a9630;            /* ظل الزر الأخضر */
+  --button-green: #a5d54f;          /* زر "مراجعة المباراة" */
+  --background-light: #f8f8f8;      /* خلفية الإحصائيات */
+  --text-dark: #000000;             /* النصوص الأساسية */
+  --text-muted: #555555;            /* نص التصنيف وغيره */
+  --error-red: #f44336;             /* أخطاء فادحة */
+  --warning-orange: #ff9800;        /* إضاعة الفرص */
+  --highlight-blue: #2196f3;        /* نقلة رائعة */
+  --gray-light: #e0e0e0;            /* خلفية الأزرار السفلية */
+  --gray-shadow: #bdbdbd;           /* ظل الأزرار */
+  --chessboard-dark: #769656;       /* لون مربعات الشطرنج الداكنة */
+  --chessboard-light: #eeeed2;      /* لون مربعات الشطرنج الفاتحة */
+}
+:root{
+    --color-blue:#2d3df0;
+    --color-orange:#FF8731;
+    --color-red:#D22F2F;
+    --color-DGreen:#107113;
+    --color-SGreen:#3B7F3D;
+    --color-white:#FFFFFFED;
+    --color-grey:#D5D5D5;
+    --color-wgrey:#F1F1F1E0;
+    --color-bgrey:#3C3C3CE0;
+    --color-blackoOP:#000000;
+}
+
+.bold{
+    font-weight:800;
+}
+
+
+.Pic-Player{
+    width: 50px !important;
+    height: 50px !important;
+    aspect-ratio: 1/1;
+}
+.content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(300px,70%);
+    padding: 7px;
+    background: var(--background-light);
+    border-radius:12px;
+    overflow: hidden;
+    z-index: 2;
+}
+.circle-nav{
+    background: red;
+    position: absolute;
+    width: 125%;
+    left: 50%;
+    height: 150px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    background: #3B7F3D;
+}
+.c{
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+}
+.cr{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.cs{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.nav{
+    color: var(--color-white);
+    padding: 10px 0;
+    margin-bottom: 2px;
+    
+}
+.main-nav{
+    /* background-color: #000000; */
+    
+    
+    /* justify-content: space-around; */
+}
+.info{
+    font-size: 10px;
+    color: var(--text-muted);
+}
+.Pictures{
+    font-weight: 700;
+    color: var(--text-muted);
+    align-items: start;
+    position: relative;
+    height: 140px;
+}
+
+.clock{
+    position: absolute;
+    top:40% !important;
+}
+.feild{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.img{
+    width: 100px;
+    height: 100px;
+    aspect-ratio: 1/1;
+    border: 5px solid var(--color-DGreen);
+}
+
+
+.details{
+    width: 100%;
+    height: 50px !important;
+    background-color: red;
+}
+.rtl{
+    grid-template-columns: 15% 50% 1fr;
+    direction: rtl;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    background-color: #2196f3;
+}
+.Avatar{
+    display: flex;
+    /* width: 10%; */
+    height: 100%;
+    position: relative;
+    background-color: red;
+}
+.Pic-Player{
+    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    aspect-ratio: 1/1;
+}
+.NameOfPlayer{
+    padding: 5px 10px;
+    background-color: blue;
+    /* width: 50%; */
+    
+}
+.Timer{
+    background-color: green;
+    height: 100%;
+}
+
+.black {
+  transform: rotate(180deg);
+}

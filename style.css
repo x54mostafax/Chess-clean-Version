@@ -1,0 +1,185 @@
+
+*{
+  margin: 0 ;
+  padding: 0;
+  font-family: "Sofadi One", system-ui;
+  font-weight: 700;
+  font-style: normal;
+  
+}
+
+:root {
+--primary-green: #8ac23f;         /* لون الخلفية العلوية */
+--dark-green: #5a9630;            /* ظل الزر الأخضر */
+--button-green: #a5d54f;          /* زر "مراجعة المباراة" */
+--background-light: #f8f8f8;      /* خلفية الإحصائيات */
+--text-dark: #000000;             /* النصوص الأساسية */
+--text-muted: #555555;            /* نص التصنيف وغيره */
+
+--error-red: #f44336;             /* أخطاء فادحة */
+--warning-orange: #ff9800;        /* إضاعة الفرص */
+--highlight-blue: #2196f3;        /* نقلة رائعة */
+
+--gray-light: #e0e0e0;            /* خلفية الأزرار السفلية */
+--gray-shadow: #bdbdbd;           /* ظل الأزرار */
+
+--chessboard-dark: #769656;       /* لون مربعات الشطرنج الداكنة */
+--chessboard-light: #eeeed2;      /* لون مربعات الشطرنج الفاتحة */
+}
+:root{
+  --color-blue:#616EFF;
+  --color-orange:#FF8731;
+  --color-red:#D22F2F;
+  --color-DGreen:#107113;
+  --color-SGreen:#3B7F3D;
+  --color-white:#FFFFFFED;
+  --color-grey:#D5D5D5;
+  --color-wgrey:#F1F1F1E0;
+  --color-bgrey:#3C3C3CE0;
+  
+}
+.bold{
+  font-weight:800;
+}
+/* .back{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background: var(--color-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+}
+.content{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(300px,70%);
+  padding: 7px;
+  background: var(--color-white);
+  border-radius:12px;
+  overflow: hidden;
+  z-index: 2;
+}
+.circle-nav{
+  position: absolute;
+  width: 130%;
+  left: 50%;
+  height: 120px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%,-50%) ;
+  background: var;
+}
+.c{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cr{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.cs{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.nav{
+  color: var(--color-white);
+  padding: 10px 0;
+  margin-bottom: 2px;
+  
+}
+.main-nav{
+  padding: 0px 10px  !important;
+  justify-content: space-around;
+}
+.info{
+  font-size: 10px;
+  color: var(--color-wgrey);
+}
+.Pictures{
+  font-weight: 700;
+  color: var(--color-bgrey);
+  align-items: start;
+  position: relative;
+  height: 140px;
+}
+
+
+.resy{
+  position: absolute;
+  top: 90%;
+}
+.mid{
+  flex-direction: column;
+  gap: 5px;
+}
+.Fmid{
+  color: var(--text-muted);
+  flex-direction: column;
+}
+.feature{
+  width: 90%;
+  padding: 10px 0;
+  border-radius: 12px;
+  color: var(--color-white);
+  background: var(--color-SGreen);
+  border-bottom: 5px solid #054F0594
+}
+.Goals{
+ padding: 10px 0; 
+ width: 100%;
+}
+.goal{
+  flex-direction: column;
+}
+
+.sq1{
+background:  var(--color-red);  
+}
+.sq2{
+background:  var(--color-orange);  
+}
+.sq3{
+background:  var(--color-blue); 
+}
+.g1{
+  color:   var(--color-red); 
+}
+.g2{
+  color: var(--color-orange);
+}
+.g3{
+  color: var(--color-blue);
+}
+.sq{
+  color: var(--color-white);
+  border-radius: 5px;
+  padding: 2px;
+  aspect-ratio: 1/1;
+}
+.btns{
+  width: 100%;
+  height: 100%;
+  align-items: end;
+  
+}
+.btn-ms{
+  font-weight: 900;
+  width:45%;
+  padding: 10px 0 ;
+  border: 1px solid #C9C9C9;
+  border-radius: 7px;
+  border-bottom:3px solid #969696;
+  color: #000000;
+  background: var(--color-grey);
+}

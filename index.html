@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Game Interface</title>
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="./css icons/all.min.css" />
+  <link rel="stylesheet" href="./css icons/fontawesome.min.css" />
+  <link rel="stylesheet" href="./Style-chess.css">
+  <link rel="stylesheet" href="./styleClean.css">
+  <link rel="stylesheet" href="./styl.css">
+  <link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="All.css">
+<link rel="stylesheet" href="style.css"> -->
+  <!-- <link rel="stylesheet" href="./styleimgs.css"> -->
+</head>
+<body>
+  <div class="ExitPrompt">
+    <div class="finishbtn3">
+      <div dir="rtl" style="  position: absolute">
+        هل انت متاكد من رغبتك في انهاء المباراة؟
+      </div>
+      <span>
+        <button type="click" class="Quit-ExitPrompt">انهاء المباراة</button>
+        <button type="click" class="Quit-ExitPrompt" id="errase">الغاء</button>
+      </span>
+    </div>
+  </div>
+  <div class="settingsPrompt">
+    <div class="btnoption" dir="rtl">
+      <div class="Quit-settingsPrompt">
+        <button type="submit" >انسحاب</button>
+      </div>
+      <div class="Quit-settingsPrompt">
+        <button type="submit" >تعطيل قلب الرقعة</button>
+      </div>
+      <div class="Quit-settingsPrompt">
+        <button type="submit" >نسخ PGN</button>
+      </div>
+    </div>
+  </div>
+  <div class="Back-Prom">
+    <div class="promotion promotion-black">
+      <div class="field-piece" data-index="1">
+        <img src="./imgs/chess Piecies/queenb.svg" alt="" class="queenb">
+      </div>
+      <div class="field-piece" data-index="2">
+        <img src="./imgs/chess Piecies/bishopb.svg" alt="" class="bishopb">
+      </div>
+      <div class="field-piece" data-index="3">
+        <img src="./imgs/chess Piecies/rockb.svg" alt="" class="rockb">
+      </div>
+      <div class="field-piece" data-index="4">
+        <img src="./imgs/chess Piecies/knightb.svg" alt="" class="knightb">
+      </div>
+    </div>
+    <div class="promotion promotion-white">
+      <div class="field-piece" data-index="1">
+        <img src="./imgs/chess Piecies/queenw.svg" alt="" class="queenw">
+      </div>
+      <div class="field-piece" data-index="2">
+        <img src="./imgs/chess Piecies/bishopw.svg" alt="" class="bishopw">
+      </div>
+      <div class="field-piece" data-index="3">
+        <img src="./imgs/chess Piecies/rockw.svg" alt="" class="rockw">
+      </div>
+      <div class="field-piece" data-index="4">
+        <img src="./imgs/chess Piecies/knightw.svg" alt="" class="knightw">
+      </div>
+    </div>
+  </div>
+  <div class="back  FinishPrompt">
+    <div class="content">
+      <div class="circle-nav "></div>
+    <div class="naver">
+      <div class="main-nav c bold">
+        <i class="fa-solid fa-copy"></i>
+        <h3 class="msg namewin">You Are Winner</h3>
+        <i class="fa-solid fa-x"></i>
+      </div>
+      <p class="info c">
+        By Fucking Plays
+      </div>
+      <div class="Pictures cr">
+       <div class="feild">
+         <div class="Av">
+           <img src="./imgs/img1.png" class="">
+         </div>
+          <p class="res c NamePLayerResult"> Mostafa</p>
+         </div>
+      <i class="abs clock cs fa-solid fa-stopwatch"></i>
+      <i class="resy cs ResultGames">1-0</i>
+      <div class="feild">
+       <div class="Av">
+         <img src="./imgs/img2.png" class=""></div> 
+       <p class="res c NamePLayerResult"> Nour</p>
+      </div>
+    </div>
+    <div class="mid c">
+  <div class="Fmid c bold">
+    <p class="type-game">تصنيف سريع</p>
+    <h5 class="Rate">24/25</h5>
+  </div>
+  <div class="feature c">مراجعةالمباراة</div>
+  <div class="Goals cr">
+    <div class="goal c">
+      <div class="sq c sq1">0</div>
+      <p class="type-goal g1">أخطاء فادحة</p>
+    </div>
+    <div class="goal c">
+      <div class="sq c sq2">1</div>
+      <p class="type-goal g2">إضاعة فرص</p>
+    </div>
+    <div class="goal c">
+      <div class="sq c sq3">24</div>
+      <p class="type-goal g3">نقلة رائعة</p>
+    </div>
+  </div>
+  <div class="btns cr">
+    <button class="btn-ms Quit-FinishPrompt"> مباراة جديدة </button>
+    <button class="btn-ms Quit-FinishPrompt">إعادة  المباراة</button>
+  </div>
+</div>
+    </div>
+    </div>
+    
+  </div>
+  <div class="container">
+  <!-- Header with game info -->
+  <div class="header">
+    <div class="back-button btn-ExitPrompt"><i class="fa fa-arrow-left"></i></div>
+    <div class="game-title">3|0 Blitz 26:45</div>
+    <i class="fa-solid fa-signal"></i>
+  </div>
+  <!-- Move history -->
+  <div class="move-history">
+    <div class="move">
+      <span class="move-number">1.</span>
+      <span>d5</span>
+    </div>
+    <div class="move">
+      <span class="move-number">2.</span>
+      <span>h5</span>
+    </div>
+    <div class="move">
+      <span class="move-number">3.</span>
+      <span>♕xf6</span>
+    </div>
+    <div class="move">
+      <span class="move-number">4.</span>
+      <span>g3</span>
+    </div>
+    <div class="move">
+      <span class="move-number">5.</span>
+      <span>♘xh5</span>
+    </div>
+  </div>
+  
+  <!-- White player info -->
+  <div class="player-info player-info-white">
+    <div class="player">
+      <img class="player-icon" src="./imgs/chess Piecies/kingb.svg" alt="White King" style="width:32px;height:32px;margin-right:8px;">
+      <div class="player-details">
+        <div>
+          <span class="player-name">CR7</span>
+          <span class="player-flag">🇺🇸</span>
+        </div>
+        <div class="player-status"></div>
+      </div>
+    </div>
+    <div class="timer ">
+      <span class="timeplayer">1:56</span>
+    </div>
+  </div>
+  <!-- Chessboard -->
+  <div class="chessboard" id="board"></div>
+  <!-- Black player info -->
+  <div class="player-info player-info-black">
+    <div class="player">
+      <img class="player-icon" src="./imgs/chess Piecies/kingw.svg" alt="Black King" style="width:32px;height:32px;margin-right:8px;">
+      <div class="player-details">
+        <div>
+          <span class="player-name">ABBAS WATERSON</span>
+          <span class="player-flag">🇺🇸</span>
+        </div>
+        <div class="player-rating"></div>
+      </div>
+    </div>
+    <div class="timer">
+      <span class="player-advantage"></span>
+      <span class="timeplayer">2:54</span>
+    </div>
+  </div>
+  
+  <!-- Footer navigation -->
+  <div class="footer">
+    <button class="nav-button btn-settingsPrompt">
+      <div class="nav-icon"><i class="fa fa-bars"></i></div>
+      <div>Options</div>
+    </button>
+    <div class="nav-button">
+      <div class="nav-icon"><i class="fa fa-comments"></i></div>
+      <div>Chat</div>
+    </div>
+    <div class="nav-button backmove">
+      <div class="nav-icon"><i class="fa fa-arrow-left"></i></div>
+      <div>Back</div>
+    </div>
+    <div class="nav-button frontmove">
+      <div class="nav-icon"><i class="fa fa-arrow-right"></i></div>
+      <div>Forward</div>
+    </div>
+  </div>
+  </div>
+  <script src="./scripts/handleUi.js" type="module"></script>
+  <script type="module" src="./scripts/data.js"></script>
+  <script src="./scripts/classes.js" type="module"></script>
+  <script type="module" src="./scripts/moves.js"></script>
+  <!-- <script src="./scripts/testGame.js" type="module"></script> -->
+  <script src="./scripts/handleHtml.js" type="module"></script>
+  <!-- <script src="./scripts/tester.js" type="module"></script> -->
+  <script src="./scripts/tester.js" type="module"></script>
+</body>
+</html>
+
