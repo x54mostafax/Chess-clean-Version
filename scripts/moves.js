@@ -160,10 +160,16 @@ export function MovePiece(Position, PieceChess) {
         Game.currentPlayer = !Game.currentPlayer;
         ScanAllow(Game.currentPlayer);
         IsMate(!Game.currentPlayer,'MovePiece 2')
+        Game.CounterOfMoves--;
+        console.log(Game.CounterOfMoves,'CounterOfMoves');
+        console.log(Game.CountOfPiecies,'Players[0]');
+        console.log();
+        
+        
+        if (Game.CounterOfMoves<=0) {Game.IsDrawn()}
         if (PieceChess.name == 'pawn') {ScannerOfPromotion(PieceChess)}
         return move.isTabiet || true;
     }
-
     return false;
 }
 // static MainVecs = [Vector2.UP, Vector2.DOWN, Vector2.RIGHT, Vector2.LEFT];
@@ -202,9 +208,17 @@ export function ScanDangerousFields(Type, IsChicked = false) {
     let DangerousFields = [];
     let PiecesScanned = Piece.AllPeices.filter(el => el.type == Type && !el.isKilled);
     let kingEnemy = Game.Kings[+!Type];
-    let Atackers = []
+    let Atackers = [];
     PiecesScanned.forEach((piece, i) => {
-        let fields = MangeMovies(piece, false).map((Vec) => Vec.f);
+        let fields = MangeMovies(piece, false).map((Vec) => {
+            if (Game.Board[Vec.f - 1].name=='king' && Game.Board[Vec.f - 1].type === !piece.type && piece.name != 'pawn') {
+                let PosMe, Posking;
+                [PosMe, Posking] = [piece.currentPosition, kingEnemy.currentPosition];
+                let V=new Vector2(Motlak(Posking.x - PosMe.x),Motlak(Posking.y - PosMe.y));
+                DangerousFields.push(SumVecs(Posking, V).f);
+            }
+            return Vec.f
+        });
         if (IsChicked && fields.includes(kingEnemy.currentPosition.f)) { Atackers.push(piece) }
         else DangerousFields.push(...fields)
     })

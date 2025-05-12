@@ -1,4 +1,4 @@
-import { GameBoard,times,FinishPrompt } from "./data.js";
+import { GameBoard,times,FinishPrompt, Piecies } from "./data.js";
 // import { Handleclick } from "./handleHtml.js";
 import { HandleAnimate, Handleclick } from "./handleHtml.js";
 import { Active,ActiveFinish,DeActive } from "./handleUi.js";
@@ -14,8 +14,6 @@ export class Player {
     this.isKished = false;
     this.AllowedArea = [];
     Player.Players.push(this);
-    this.EnemySquares = new Set()
-    this.AfterEnemySquares = new Set()
   }
 }
 
@@ -45,18 +43,35 @@ export class Piece {
   }
   set isKilled(args){
     this.TisKilled = args;
-    if (args==true) {GameBoard.removeChild(this.doc)}
+    Game.CountOfPiecies+=1-args*2
+    if (Game.CountOfPiecies<=4) {
+      let AllowedPieces=['pawn','rook','queen']
+      let LastPiece=Piece.AllPeices.filter((piece) => piece.isKilled==false)
+      .find((piece) => AllowedPieces.includes(piece.name));
+      if (!LastPiece) {
+        console.log('Drawn');
+        Game.IsDrawn()
+      }
+    }
+    if (args==true) {
+      Game.CounterOfMoves=50;
+      Game.Board[this.currentPosition.f - 1] = 0;
+      GameBoard.removeChild(this.doc);
+    }
     else {GameBoard.appendChild(this.doc);Game.Board[this.currentPosition.f - 1]=this}
   }
   get isKilled(){return this.TisKilled}
   get currentPosition() { return this.#currentPosition; }
   set currentPosition(value) {
     if (!(this instanceof Vector2)) { value = new Vector2(value) };
+    if (this.name=='pawn') {Game.CounterOfMoves=50;}
     Game.Board[this.#currentPosition.f - 1] = 0;
     Game.Board[value.f - 1] = this;
     this.#currentPosition = value;
+    
   }
   set Promotion(name) {
+    Game.CounterOfMoves=50;
     this.name = name;
     let NameOfPiece = this.name + (this.type ? 'w' : 'b');
     this.doc.innerHTML = `<img src="imgs/chess Piecies/${NameOfPiece}.svg" alt class="${NameOfPiece}" />`;
@@ -87,6 +102,8 @@ export class Game {
   static Kings = [];
   static currentPlayer = true;
   static PointsOfGames = [0, 0];
+  static CounterOfMoves = 50;
+  static CountOfPiecies=32;
   static IsPlay=()=>{
     let start =setInterval(e=>{
       let curPlayer=Player.Players[+!Game.currentPlayer];
@@ -107,12 +124,12 @@ export class Game {
     InitPieces()
     
   }
-  static IsEnd=(WinnerIndex,where)=>{
+  static IsEnd=(WinnerIndex,)=>{
     Game.PointsOfGames[WinnerIndex]++;
     ActiveFinish()
-
-
-    
+  }
+  static IsDrawn=()=>{
+    ActiveFinish()
   }
   constructor(name, type, pos, doc) {
     this.name = name;
@@ -141,14 +158,11 @@ export class Move {
     Move.Movements[Move.indexMove++] = this;
     Move.Movements.length = Move.indexMove;
     if (isTabiet) {
-
       if (isTabiet.currentPosition.x == 1) {
         isTabiet.currentPosition = SumVecs(isTabiet.currentPosition, new Vector2(3, 0))
-
       }
       else if (isTabiet.currentPosition.x == 8) {
         isTabiet.currentPosition = SumVecs(isTabiet.currentPosition, new Vector2(-2, 0))
-
       }
       isTabiet.countMoves = 1;
       this.isTabiet = {
@@ -251,12 +265,13 @@ export function MultiVectors(num, vec) {
 
 export function InitPieces() {
   document.querySelectorAll('.piecechess').forEach((el) => el.remove())
+  let NamesPlayers=['Mostafa','Waterson']
   for (let i = Player.Players.length; i < 2; i++) {
     let x = 1;
     if (i) {
       for (let j = 1; j <= 8; j++) { new Piece('pawn', Boolean(i), new Vector2(j, 7)) }
     }
-    new Player("user");
+    new Player(NamesPlayers[i]);
     new Piece('rock', Boolean(i), new Vector2(x++, 1 + i * 7))
     new Piece('knight', Boolean(i), new Vector2(x++, 1 + i * 7))
     new Piece('bishop', Boolean(i), new Vector2(x++, 1 + i * 7))

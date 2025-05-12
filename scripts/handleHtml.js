@@ -10,10 +10,10 @@ for(let i=0;i<64;i++){
 }
 export function MoveStep(direction=1){
     const isForward=direction===1;
-    const index=isForward?Move.indexMove:Move.indexMove-1;
+    const index=Move.indexMove-!isForward;
     const curMove=Move.Movements[index];
     if(!curMove){
-        Move.indexMove=isForward?Move.Movements.length:0;
+        Move.indexMove=Move.Movements.length*isForward
         return;
     }
     const piece=curMove.piece;
@@ -34,6 +34,7 @@ export function MoveStep(direction=1){
     }
     Game.currentPlayer=isForward?!piece.type:piece.type;
     Move.indexMove+=direction;
+    Game.CounterOfMoves+=!isForward*2-1;
 }
 
 function HandleMove(index){
