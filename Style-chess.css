@@ -359,7 +359,7 @@
   }
   @media (max-width: 500px) {
     .container {
-      padding: 0 1vw;
+      /* padding: 0 1vw; */
     }
     .chessboard {
       width: 98vw;
@@ -386,7 +386,7 @@
   }
   @media (min-width: 1000px) {
     .container {
-      max-width: 700px;
+      /* max-width: 700px; */
     }
     .chessboard {
       width: 560px;
@@ -402,14 +402,14 @@
   @media (min-width: 740px) {
     .chessboard {
       width: 50vw;
-      max-width: 700px;
+      /* max-width: 700px; */
       max-height: 50vw;
       min-width: 560px;
       min-height: 560px;
     }
     .container {
-      max-width: 1200px;
-      padding: 0 5vw;
+      /* max-width: 1200px; */
+      /* padding: 0 5vw; */
     }
     .move-history, .player-info, .footer {
       font-size: 1.2em;
@@ -429,7 +429,7 @@
       min-height: 700px;
     }
     .container {
-      max-width: 1400px;
+      /* max-width: 1400px; */
     }
   }
   .square1 {
