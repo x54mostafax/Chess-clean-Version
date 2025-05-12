@@ -1,4 +1,4 @@
-import{HtmlNodes,InitPieces,Vector2,Game,Player,Piece,Move,SumVecs,MultiVectors}from'./classes.js';
+import{HtmlNodes,InitPieces,Vector2,Game,Player,Piece,Move,SumVecs,MultiVectors, Sound}from'./classes.js';
 import{GameBoard}from'./data.js';
 import{IsMate,MangeMovies,MovePiece,ScanAllow,ScanDangerousFields,WhereTheEnemy}from'./moves.js';
 
@@ -30,8 +30,10 @@ export function MoveStep(direction=1){
     if(killedPiece)killedPiece.isKilled=isForward;
     if(curMove.Promotion){
         piece.Promotion=isForward?curMove.Promotion:'pawn';
+        if (isForward) Sound.Promotion();else Sound.Movement()
         HandleAnimate(piece.currentPosition,piece,true);
     }
+    if (!curMove.Promotion) Sound.Movement();
     Game.currentPlayer=isForward?!piece.type:piece.type;
     Move.indexMove+=direction;
     Game.CounterOfMoves+=!isForward*2-1;

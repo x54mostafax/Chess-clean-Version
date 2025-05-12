@@ -1,4 +1,4 @@
-import { Vector2, CreatePieceHtml,Piece, Player, Move, Game, SumVecs, MultiVectors, isValidVector, InitPieces } from './classes.js';
+import { Vector2, CreatePieceHtml,Piece, Player, Move, Game, SumVecs, MultiVectors, isValidVector, InitPieces, Sound } from './classes.js';
 import { BackPromotion, ChoicesPromDoc, Promotions } from './data.js';
 
 // let Promotions = document.querySelectorAll('.promotion')
@@ -25,7 +25,8 @@ function GenerateMoves(directions, piece, limit = 8, isAttack = true) {
                     let LastPawn= Move.Movements[Move.indexMove - 1]?.piece;
                     let PosMe,PosEnemy;
                     [PosMe,PosEnemy]=[piece.currentPosition,LastPawn?.currentPosition];
-                    if (LastPawn?.countMoves == 1 && dirVec.x*dir+PosMe.x==PosEnemy.x && PosMe.y==PosEnemy.y ) {
+                    let AddedCond=Math.abs(LastPawn?.currentPosition?.y-LastPawn?.firstPos?.y)!==1 
+                    if (LastPawn?.countMoves == 1 && dirVec.x*dir+PosMe.x==PosEnemy.x && PosMe.y==PosEnemy.y && AddedCond ) {
                         scanPos.isTagawz = LastPawn;
                         allowedArea.push(scanPos); 
                     }
@@ -42,9 +43,6 @@ function GenerateMoves(directions, piece, limit = 8, isAttack = true) {
     });
     return allowedArea;
 }
-
-
-
 
 
 
@@ -118,7 +116,6 @@ export function MangeMovies(PieceChess, isAttack=true) {
                 if (Guards[index].name=='knight') {
                     return [];
                 }
-                
                 return res.filter((value) => {
                     let Vec=Vector2.AllVecs[index];
                     Vec=new Vector2(Vec.x,-Vec.y);
@@ -149,6 +146,7 @@ export function MovePiece(Position, PieceChess) {
     let PositionIndex = Position.f - 1;
     if (Game.currentPlayer == PieceChess.type) {
         // Kill Piece
+        
         let attackedPiece= move.isTagawz||Game.Board[Position.f-1] ;
         if (attackedPiece.type==!Game.currentPlayer) {
             attackedPiece.isKilled = true;
@@ -161,11 +159,9 @@ export function MovePiece(Position, PieceChess) {
         ScanAllow(Game.currentPlayer);
         IsMate(!Game.currentPlayer,'MovePiece 2')
         Game.CounterOfMoves--;
-        
-        
-        
         if (Game.CounterOfMoves<=0) {Game.IsDrawn()}
-        if (PieceChess.name == 'pawn') {ScannerOfPromotion(PieceChess)}
+        let Promotion=ScannerOfPromotion(PieceChess);
+        if (Promotion) Sound.Promotion();else Sound.Movement()
         return move.isTabiet || true;
     }
     return false;
@@ -294,10 +290,13 @@ export function AllowedFields(type) {
 }
 
 function ScannerOfPromotion(Pawn) {
+    if (Pawn.name !='pawn') {return false};
     if (Pawn.currentPosition.y == 1 || Pawn.currentPosition.y == 8) {
         Promotions.item(+Pawn.type).style.display = 'grid'
         BackPromotion.style.display = 'block'
+        return true 
     }
+    return false
 }
 ChoicesPromDoc.forEach((el,i) => el.addEventListener('click', (e) => {
     // Promotions.item(0).style.display = 'none'

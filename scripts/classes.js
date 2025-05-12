@@ -104,6 +104,7 @@ export class Game {
   static PointsOfGames = [0, 0];
   static CounterOfMoves = 50;
   static CountOfPiecies=32;
+  static MovesFreeze=[]// in Future
   static IsPlay=()=>{
     let start =setInterval(e=>{
       let curPlayer=Player.Players[+!Game.currentPlayer];
@@ -140,7 +141,14 @@ export class Game {
   }
   
 }
-
+export class Sound{
+  static Sounds={
+    Promotion:'../Sounds/Promote.mp3',
+    Movement:'../Sounds/Move.mp3'
+  }
+  static Promotion =()=>new Audio(Sound.Sounds.Promotion).play();
+  static Movement =()=>new Audio(Sound.Sounds.Movement).play();
+}
 export class Move {
   static Movements = [];
   static indexMove = 0;
@@ -154,7 +162,6 @@ export class Move {
     this.docOfkilled;
     this.index = Move.Movements.length;
     this.Promotion;
-    this.PromotionTurn;
     Move.Movements[Move.indexMove++] = this;
     Move.Movements.length = Move.indexMove;
     if (isTabiet) {

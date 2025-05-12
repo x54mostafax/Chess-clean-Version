@@ -30,7 +30,6 @@ export let E_Exits=document.querySelector('.btn-ExitPrompt');
 export let E_Settings=document.querySelector('.btn-settingsPrompt');
 export const regNum = /-?\d+/i
 export const regNums = /-?\d+/gi
-
 // المتغيرات
 export let divpress = document.createElement('div')
 export let divclick = document.createElement('div')
@@ -46,6 +45,7 @@ export let circlesTest = []
 export let isWhite = true
 export let nowfeilds = []
 export let r = 'pkf';
+
 
 
 
