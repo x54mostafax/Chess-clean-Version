@@ -161,9 +161,7 @@ export function MovePiece(Position, PieceChess) {
         ScanAllow(Game.currentPlayer);
         IsMate(!Game.currentPlayer,'MovePiece 2')
         Game.CounterOfMoves--;
-        console.log(Game.CounterOfMoves,'CounterOfMoves');
-        console.log(Game.CountOfPiecies,'Players[0]');
-        console.log();
+        
         
         
         if (Game.CounterOfMoves<=0) {Game.IsDrawn()}
