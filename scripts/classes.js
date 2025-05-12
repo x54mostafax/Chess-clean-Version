@@ -143,8 +143,8 @@ export class Game {
 }
 export class Sound{
   static Sounds={
-    Promotion:'../Sounds/Promote.mp3',
-    Movement:'../Sounds/Move.mp3'
+    Promotion:'./Sounds/Promote.mp3',
+    Movement:'./Sounds/Move.mp3'
   }
   static Promotion =()=>new Audio(Sound.Sounds.Promotion).play();
   static Movement =()=>new Audio(Sound.Sounds.Movement).play();
