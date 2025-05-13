@@ -164,8 +164,7 @@ export function MovePiece(Position, PieceChess) {
         let AllMovesEnemy=Piece.AllPeices.filter(piece=>piece.type== !PieceChess.type && !piece.isKilled).find(el=>MangeMovies(el).length>0)
         if (Game.CounterOfMoves<=0 || !AllMovesEnemy) {Game.IsDrawn('Fifty-Move Rule')};
         // Sound.Play(Sound.SoundKeys.TenSeconds)
-        ScannerOfPromotion(PieceChess);
-        
+        ScannerOfPromotion(PieceChess)
         Sound.Play(Sound.SoundKeys.Move)
         Sound.IsPlay=false;
         return move.isTabiet || true;
@@ -190,8 +189,9 @@ export function GuardsOfKingOrEnemies(type, isEnemy = false) {
             if (curPiece.type == !type && isEnemy) {
                 if (Main[Math.abs(Motlak(Vec.x))+Math.abs(Motlak(Vec.y)) - 1].includes(curPiece.name)) {
                 king.Enemies[index] = curPiece;
+            }
                 break;
-            }}
+            }
             if (curPiece.type == type && !isEnemy) {
                 if (king.Guards[index]) {
                     king.Guards[index]=undefined
