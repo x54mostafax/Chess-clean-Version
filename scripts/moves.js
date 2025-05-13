@@ -162,7 +162,7 @@ export function MovePiece(Position, PieceChess) {
         IsMate(!Game.currentPlayer,'MovePiece 2')
         Game.CounterOfMoves--;
         let AllMovesEnemy=Piece.AllPeices.filter(piece=>piece.type== !PieceChess.type && !piece.isKilled).find(el=>MangeMovies(el).length>0)
-        if (Game.CounterOfMoves<=0 || !AllMovesEnemy) {Game.IsDrawn()};
+        if (Game.CounterOfMoves<=0 || !AllMovesEnemy) {Game.IsDrawn('Fifty-Move Rule')};
         // Sound.Play(Sound.SoundKeys.TenSeconds)
         ScannerOfPromotion(PieceChess);
         
@@ -312,8 +312,6 @@ function ScannerOfPromotion(Pawn) {
     return false
 }
 ChoicesPromDoc.forEach((el,i) => el.addEventListener('click', (e) => {
-    // Promotions.item(0).style.display = 'none'
-    // Promotions.item(1).style.display = 'none'
     BackPromotion.style.display = 'none'
     let CurrentPawn = Move.Movements[Move.indexMove-1];
     let Names = ['queen', 'bishop', 'rock', 'knight']

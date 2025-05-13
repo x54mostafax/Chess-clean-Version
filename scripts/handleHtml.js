@@ -19,17 +19,15 @@ export function MoveStep(direction=1){
     const piece=curMove.piece;
     const killedPiece=curMove.Iskiller;
     piece.countMoves+=direction;
-    
+    piece.currentPosition=isForward?curMove.APos:curMove.BPos;
     if(curMove.isTabiet){
         const rock=curMove.isTabiet.Rock;
         rock.currentPosition=isForward?curMove.isTabiet.APos:rock.firstPos;
         rock.countMoves+=direction;
         HandleAnimate(rock.currentPosition,rock,true);
     }
-    
-    if(killedPiece){killedPiece.isKilled=isForward;}
-    piece.currentPosition=isForward?curMove.APos:curMove.BPos;
     HandleAnimate(piece.currentPosition,piece,true);
+    if(killedPiece){killedPiece.isKilled=isForward;}
     if(curMove.Promotion){
         piece.Promotion=isForward?curMove.Promotion:'pawn';
         if (isForward) Sound.Play(Sound.SoundKeys.Promote);

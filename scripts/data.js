@@ -21,6 +21,8 @@ export let NamePLayerResults=document.querySelectorAll('.NamePLayerResult');
 export let SettingsBtn=document.querySelector('.SettingsBtn');
 export let Drawn=document.querySelector('.Drawn');
 export let RePlayGame=document.querySelector('.RePlayGame');
+export let ReasonEnd=document.querySelector('.ReasonEnd');
+export let StateEnd=document.querySelector('.StateEnd')
 //BtnSOfQuit
 export let QFinishs=document.querySelectorAll('.Quit-FinishPrompt');
 export let QSettings=document.querySelectorAll('.Quit-settingsPrompt');
@@ -28,6 +30,7 @@ export let QExits=document.querySelectorAll('.Quit-ExitPrompt');
 //BtnSOfEnter
 export let E_Exits=document.querySelector('.btn-ExitPrompt');
 export let E_Settings=document.querySelector('.btn-settingsPrompt');
+
 // export let Replay=
 
 

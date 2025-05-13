@@ -49,7 +49,7 @@ export class Piece {
       let LastPiece=Piece.AllPeices.filter((piece) => piece.isKilled==false)
       .find((piece) => AllowedPieces.includes(piece.name));
       if (!LastPiece) {
-        Game.IsDrawn()
+        Game.IsDrawn('Insufficient Material')
       }
     }
     if (args==true) {
@@ -129,14 +129,14 @@ export class Game {
     Move.indexMove=0,Move.curindex=0;
     InitPieces()
   }
-  static IsEnd=(WinnerIndex,)=>{
+  static IsEnd=(WinnerIndex,reason)=>{
     Game.PointsOfGames[WinnerIndex]++;
     Sound.Play(Sound.SoundKeys.GameEnd);
-    ActiveFinish()
+    ActiveFinish(`${Player.Players[WinnerIndex].name} Wins`,'By checkmate')
   }
-  static IsDrawn=()=>{
+  static IsDrawn=(reason)=>{
     Sound.Play(Sound.SoundKeys.GameDraw);
-    ActiveFinish()
+    ActiveFinish('By Drawn',reason)
   }
   constructor(name, type, pos, doc) {
     this.name = name;
