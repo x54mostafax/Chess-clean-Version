@@ -27,16 +27,17 @@ export function MoveStep(direction=1){
         HandleAnimate(rock.currentPosition,rock,true);
     }
     HandleAnimate(piece.currentPosition,piece,true);
-    if(killedPiece)killedPiece.isKilled=isForward;
+    if(killedPiece){killedPiece.isKilled=isForward;}
     if(curMove.Promotion){
         piece.Promotion=isForward?curMove.Promotion:'pawn';
-        if (isForward) Sound.Promotion();else Sound.Movement()
+        if (isForward) Sound.Play(Sound.SoundKeys.Promote);
         HandleAnimate(piece.currentPosition,piece,true);
     }
-    if (!curMove.Promotion) Sound.Movement();
+    if (!curMove.Promotion) Sound.Play(Sound.SoundKeys.Move);
     Game.currentPlayer=isForward?!piece.type:piece.type;
     Move.indexMove+=direction;
     Game.CounterOfMoves+=!isForward*2-1;
+    Sound.IsPlay=false;
 }
 
 function HandleMove(index){
@@ -62,7 +63,9 @@ export function Handleclick(index,isPiece=false){
     Squares=HtmlNodes.Squares;
     Piecies=HtmlNodes.AllPeices;
     let curPiece=Game.Board[index];
-    if(!curPiece&&Squares[index].classList.contains('circle'))return HandleMove(index);
+    if (!curPiece) {
+        if(Squares[index].classList.contains('circle'))return HandleMove(index);
+    }
     if(curPiece.type==!Game.currentPlayer&&Squares[index].classList.contains('fire'))return HandleMove(index);
     ClearBoard();
     if(curPiece.type==Game.currentPlayer&&!curPiece.isKilled){
@@ -81,11 +84,11 @@ export function Handleclick(index,isPiece=false){
     }
 }
 
-function Helper(king,index,MovePos){
-    if(!king.Enemies[index])return;
-    let guard=king.Guards[index].currentPosition;
-    let enemy=king.Enemies[index].currentPosition;
-    let direction=Vector2.AllVecs[index];
-    let moveVector=new Vector2(MovePos.x-guard.x,MovePos.y-guard.y).f;
-    let expectedVector=MultiVectors(Math.abs(enemy.x-guard.x),direction);
-}
+// function Helper(king,index,MovePos){
+//     if(!king.Enemies[index])return;
+//     let guard=king.Guards[index].currentPosition;
+//     let enemy=king.Enemies[index].currentPosition;
+//     let direction=Vector2.AllVecs[index];
+//     let moveVector=new Vector2(MovePos.x-guard.x,MovePos.y-guard.y).f;
+//     let expectedVector=MultiVectors(Math.abs(enemy.x-guard.x),direction);
+// }

@@ -49,7 +49,6 @@ export class Piece {
       let LastPiece=Piece.AllPeices.filter((piece) => piece.isKilled==false)
       .find((piece) => AllowedPieces.includes(piece.name));
       if (!LastPiece) {
-        console.log('Drawn');
         Game.IsDrawn()
       }
     }
@@ -57,6 +56,7 @@ export class Piece {
       Game.CounterOfMoves=50;
       Game.Board[this.currentPosition.f - 1] = 0;
       GameBoard.removeChild(this.doc);
+      Sound.Play(Sound.SoundKeys.Capture)
     }
     else {GameBoard.appendChild(this.doc);Game.Board[this.currentPosition.f - 1]=this}
   }
@@ -105,31 +105,37 @@ export class Game {
   static CounterOfMoves = 50;
   static CountOfPiecies=32;
   static MovesFreeze=[]// in Future
+  static AdditionTime=0;// in Future
+  static StateGame=true;
   static IsPlay=()=>{
     let start =setInterval(e=>{
       let curPlayer=Player.Players[+!Game.currentPlayer];
       Player.Players[+!Game.currentPlayer].time--;
       times.item(+Game.currentPlayer).innerHTML=`${new String(Math.trunc(curPlayer.time/60)).padStart(2, 0)}:${new String(curPlayer.time%60).padStart(2, 0)}`
-      if (curPlayer.time<=0) {clearInterval(start);Game.IsEnd(!curPlayer.type)}
+      if (curPlayer.time<=0 || !Game.StateGame) {clearInterval(start);Game.IsEnd(!curPlayer.type)}
     },1000)
   }
   static StartGame=()=>{
+    Game.StateGame=false;
+    Game.StateGame=true;
     times.forEach(el=>el.innerHTML='10:00')
     Game.IsPlay()
     let Names=[Player.Players[0]?.name,Player.Players[1]?.name]
     Move.Movements=[], Piece.AllPeices=[], Game.FiresPieces=[], Game.FiresPositions=[], Game.Kings=[],Player.Players=[];
     // Names.map(el=>new Player(el))
     Game.currentPlayer=true;
+    // Sound.Play('GameStart');
     Game.Board=new Array(64).fill(0);
     Move.indexMove=0,Move.curindex=0;
     InitPieces()
-    
   }
   static IsEnd=(WinnerIndex,)=>{
     Game.PointsOfGames[WinnerIndex]++;
+    Sound.Play(Sound.SoundKeys.GameEnd);
     ActiveFinish()
   }
   static IsDrawn=()=>{
+    Sound.Play(Sound.SoundKeys.GameDraw);
     ActiveFinish()
   }
   constructor(name, type, pos, doc) {
@@ -141,13 +147,53 @@ export class Game {
   }
   
 }
+
+
 export class Sound{
+  static IsPlay=false;
+  static SoundKeys = {
+  Move: "Move",
+  Capture: "Capture",
+  Castle: "Castle",
+  Promote: "Promote",
+  MoveSelf: "MoveSelf",
+  MoveCheck: "MoveCheck",
+  GameStart: "GameStart",
+  GameEnd: "GameEnd",
+  GameDraw: "GameDraw",
+  Click: "Click",
+  Illegal: "Illegal",
+  Incorrect: "Incorrect",
+  TenSeconds: "TenSeconds"
+};
   static Sounds={
-    Promotion:'./Sounds/Promote.mp3',
-    Movement:'./Sounds/Move.mp3'
+    // Move-related sounds
+    Move: './Sounds/Move.mp3',
+    Capture: './Sounds/capture.mp3',
+    Castle: './Sounds/castle.mp3',
+    Promote: './Sounds/promote.mp3',
+    MoveSelf: './Sounds/move-self.mp3',
+    MoveCheck: './Sounds/move-check.mp3',
+    // Game state sounds
+    GameStart: './Sounds/game-start.mp3',
+    GameEnd: './Sounds/game-end.mp3',
+    GameDraw: './Sounds/game-draw.mp3',
+    // UI feedback sounds
+    Click: './Sounds/click.mp3',
+    Illegal: './Sounds/illegal.mp3',
+    Incorrect: './Sounds/incorrect.mp3',
+    // Time control
+    TenSeconds: './Sounds/tenseconds.mp3'
+  };
+  static Play=(NameSound)=>{
+    if (!Sound.SoundKeys[NameSound] ) return ;
+    let Added=['GameStart','GameEnd','GameDraw']
+    if (Sound.IsPlay && !Added.includes(NameSound)) {return};
+    new Audio(Sound.Sounds[NameSound]).play()
+    Sound.IsPlay=true;
   }
-  static Promotion =()=>new Audio(Sound.Sounds.Promotion).play();
-  static Movement =()=>new Audio(Sound.Sounds.Movement).play();
+  static Promotion =()=>new Audio(Sound.SoundKeys.Promotion).play();
+  static Movement =()=>new Audio(Sound.SoundKeys.Movement).play();
 }
 export class Move {
   static Movements = [];
@@ -164,6 +210,9 @@ export class Move {
     this.Promotion;
     Move.Movements[Move.indexMove++] = this;
     Move.Movements.length = Move.indexMove;
+    if (piece.name=='rock') {
+      Sound.Play(Sound.SoundKeys.Castle)
+    }
     if (isTabiet) {
       if (isTabiet.currentPosition.x == 1) {
         isTabiet.currentPosition = SumVecs(isTabiet.currentPosition, new Vector2(3, 0))

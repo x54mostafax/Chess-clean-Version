@@ -1,5 +1,5 @@
 import { Game, Player } from "./classes.js";
-import { backBtn, frontBtn, QExits, QFinishs, QSettings,ExitPrompt,FinishPrompt,settingsPrompt,E_Settings,E_Exits, GameBoard, ResultGames, NamePLayerResults, SettingsBtn, Drawn, RePlay } from "./data.js";
+import { backBtn, frontBtn, QExits, QFinishs, QSettings,ExitPrompt,FinishPrompt,settingsPrompt,E_Settings,E_Exits, ResultGames, NamePLayerResults, Drawn, RePlayGame } from "./data.js";
 import { MoveStep } from "./handleHtml.js";
 
 //Doc
@@ -17,7 +17,7 @@ QExits.forEach(el=>{el.addEventListener('click',e=>window.close())})
 
 E_Exits.addEventListener('click',e=>Active(ExitPrompt))
 E_Settings.addEventListener('click',e=>Active(settingsPrompt))
-RePlay.addEventListener('click',e=>{DeActive(ExitPrompt)})
+RePlayGame.addEventListener('click',e=>{Game.StartGame() })
 export function ActiveFinish() {
     Active(FinishPrompt);
     ResultGames.innerHTML=`${Game.PointsOfGames[0]}:${Game.PointsOfGames[1]}`;

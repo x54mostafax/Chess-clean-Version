@@ -109,6 +109,7 @@ export function MangeMovies(PieceChess, isAttack=true) {
     let MoviesOfPiecies = [PawnMove, RockMove, BishopMove, KingMove, KnightMove, QueenMove];
     let res=MoviesOfPiecies[NamesOfPiecies.indexOf(PieceChess.name)](PieceChess, isAttack);
     if (isAttack===true) {
+        ScanAllow(PieceChess.type)
             let Guards=GuardsOfKingOrEnemies(PieceChess.type);
             let Enemys=GuardsOfKingOrEnemies(PieceChess.type,true);
             let index=Guards.indexOf(PieceChess)
@@ -146,12 +147,13 @@ export function MovePiece(Position, PieceChess) {
     let PositionIndex = Position.f - 1;
     if (Game.currentPlayer == PieceChess.type) {
         // Kill Piece
-        
         let attackedPiece= move.isTagawz||Game.Board[Position.f-1] ;
         if (attackedPiece.type==!Game.currentPlayer) {
+            //Fire Sound
             attackedPiece.isKilled = true;
         }
         Game.Board[PositionIndex] = PieceChess;
+        //Rock Sound and Move
         let NewMove = new Move(PieceChess, PieceChess.currentPosition, Position, attackedPiece, move.isTabiet);
         PieceChess.currentPosition = Position;
         PieceChess.countMoves += 1;
@@ -159,18 +161,23 @@ export function MovePiece(Position, PieceChess) {
         ScanAllow(Game.currentPlayer);
         IsMate(!Game.currentPlayer,'MovePiece 2')
         Game.CounterOfMoves--;
-        if (Game.CounterOfMoves<=0) {Game.IsDrawn()}
-        let Promotion=ScannerOfPromotion(PieceChess);
-        if (Promotion) Sound.Promotion();else Sound.Movement()
+        let AllMovesEnemy=Piece.AllPeices.filter(piece=>piece.type== !PieceChess.type && !piece.isKilled).find(el=>MangeMovies(el).length>0)
+        if (Game.CounterOfMoves<=0 || !AllMovesEnemy) {Game.IsDrawn()};
+        // Sound.Play(Sound.SoundKeys.TenSeconds)
+        ScannerOfPromotion(PieceChess);
+        
+        Sound.Play(Sound.SoundKeys.Move)
+        Sound.IsPlay=false;
         return move.isTabiet || true;
     }
     return false;
 }
+
 // static MainVecs = [Vector2.UP, Vector2.DOWN, Vector2.RIGHT, Vector2.LEFT];
 // static NoNMainVecs = [Vector2.UP_RIGHT, Vector2.UP_LEFT, Vector2.DOWN_LEFT, Vector2.DOWN_RIGHT];
 export function GuardsOfKingOrEnemies(type, isEnemy = false) {
     let king = Game.Kings[+type];
-    let Main = [['Rock', 'queen'], ['queen', 'bishop']]
+    let Main = [['rock', 'queen'], ['queen', 'bishop']]
     if (isEnemy) king.Enemies = []; else king.Guards = []
     for (const index in Vector2.AllVecs) {
         let Vec = [...Vector2.AllVecs][index];
@@ -181,7 +188,7 @@ export function GuardsOfKingOrEnemies(type, isEnemy = false) {
             if (!isValidVector(Pos)) { break ;}
             let curPiece = Game.Board[Pos.f - 1];
             if (curPiece.type == !type && isEnemy) {
-                if (Main[+Boolean(Vec.x)].includes(curPiece.name)) {
+                if (Main[Math.abs(Motlak(Vec.x))+Math.abs(Motlak(Vec.y)) - 1].includes(curPiece.name)) {
                 king.Enemies[index] = curPiece;
                 break;
             }}
@@ -227,12 +234,13 @@ export function ScanDangerousFields(Type, IsChicked = false) {
 //     return Boolean(ScanDangerousFields(Type).find(el => el.f == Game.Kings[+!Type].currentPosition.f))
 // }
 export function IsMate(type,where) {
-    ScanAllow(+type);
+    ScanAllow(+!type);
     if (Player.Players[+!type].isKished) {
         let King = Game.Kings[+!type];
         let cond1 = KingMove(King).length
         let AllowedArea = Player.Players[+!type].AllowedArea.map((value) => value.f);
         let cond = !Boolean(Player.Players[+!type].AllowedArea.length+cond1)
+        // console.log(AllowedArea);
         if (!cond1 ) {
             let fields = []
             //check The safe Area
@@ -254,7 +262,8 @@ export function IsMate(type,where) {
 
 export function ScanAllow(type) {
     let player = Player.Players[+type];
-    let AllowedArea=AllowedFields(+type)
+    let AllowedArea=AllowedFields(+type);
+    // console.log(AllowedArea,'jeer');
     if (AllowedArea.isKished) {
         player.isKished = true
         player.AllowedArea = AllowedArea.res;
@@ -275,6 +284,7 @@ export function AllowedFields(type) {
     let res = [];
     if (t1.length != 1) { return { isKished: Boolean(t1.length), res: [] } }
     let value = t1[0]
+    // console.log(kingEnemy,value,'ops',type);
     let fields = SumVecs(kingEnemy.currentPosition, MultiVectors(-1, value.currentPosition));
     let { x, y } = fields;
     res.push(value.currentPosition)
@@ -286,6 +296,8 @@ export function AllowedFields(type) {
         else if (y < 0) { y += 1 }
         if (x || y) { res.push(new Vector2(value.currentPosition.x + x, value.currentPosition.y + y)) }
     }
+    // console.log(res);
+    
     return { isKished: true, res: res }
 }
 
@@ -294,6 +306,7 @@ function ScannerOfPromotion(Pawn) {
     if (Pawn.currentPosition.y == 1 || Pawn.currentPosition.y == 8) {
         Promotions.item(+Pawn.type).style.display = 'grid'
         BackPromotion.style.display = 'block'
+        Sound.Play(Sound.SoundKeys.Promote)
         return true 
     }
     return false
@@ -306,4 +319,9 @@ ChoicesPromDoc.forEach((el,i) => el.addEventListener('click', (e) => {
     let Names = ['queen', 'bishop', 'rock', 'knight']
     CurrentPawn.Promotion = Names[(i)%4];
     CurrentPawn.piece.Promotion = Names[(i)%4]
+    // console.log(CurrentPawn);
+    
+    IsMate(CurrentPawn.piece.type)
+    IsMate(!CurrentPawn.piece.type)
+    
 }))

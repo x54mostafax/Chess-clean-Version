@@ -20,7 +20,7 @@ export let ResultGames=document.querySelector('.ResultGames');
 export let NamePLayerResults=document.querySelectorAll('.NamePLayerResult');
 export let SettingsBtn=document.querySelector('.SettingsBtn');
 export let Drawn=document.querySelector('.Drawn');
-export let RePlay=document.querySelector('.RePlay');
+export let RePlayGame=document.querySelector('.RePlayGame');
 //BtnSOfQuit
 export let QFinishs=document.querySelectorAll('.Quit-FinishPrompt');
 export let QSettings=document.querySelectorAll('.Quit-settingsPrompt');
@@ -28,23 +28,11 @@ export let QExits=document.querySelectorAll('.Quit-ExitPrompt');
 //BtnSOfEnter
 export let E_Exits=document.querySelector('.btn-ExitPrompt');
 export let E_Settings=document.querySelector('.btn-settingsPrompt');
-export const regNum = /-?\d+/i
-export const regNums = /-?\d+/gi
-// المتغيرات
-export let divpress = document.createElement('div')
-export let divclick = document.createElement('div')
-divpress.className = 'onpress'
-divclick.className = 'onpress'
-export let currentSquare = null
-export let currentPiece = null
-export let countOfFeilds = 64
-export let feilds = []
-export let fires = []
-export let killedPiece = []
-export let circlesTest = []
-export let isWhite = true
-export let nowfeilds = []
-export let r = 'pkf';
+// export let Replay=
+
+
+
+
 
 
 
